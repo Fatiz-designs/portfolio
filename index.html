@@ -15,7 +15,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap">
 <style>
-.hero img{width:100%;max-width:380px;max-height:70vh;aspect-ratio:4/5;object-fit:cover;border-radius:18px;display:block;justify-self:center}
 :root{--bg:#faf6f2;--fg:#2b2427;--muted:#6f6468;--card:#fff;--accent:#a9566b;--accent-fg:#fff;--line:#e9dfd8;--soft:#f3e9e4;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1719;--fg:#f3ebe7;--muted:#b3a5a9;--card:#272022;--accent:#e08aa0;--accent-fg:#1d1719;--line:#3a2f32;--soft:#2a2023;color-scheme:dark}}
@@ -42,7 +41,7 @@ nav ul a{text-decoration:none;color:var(--muted)}nav ul a:hover{color:var(--acce
 .btn.ghost{background:transparent;color:var(--accent)}
 .btn:hover{opacity:.88}
 .hero{display:grid;gap:40px;align-items:center;padding-top:56px}
-@media(min-width:860px){.hero{grid-template-columns:1.1fr .9fr}}
+@media(min-width:860px){.hero{grid-template-columns:1.3fr .7fr}}
 .hero h1{font-size:clamp(2.8rem,8vw,4.8rem);margin:.4rem 0 .6rem}
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
 .ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;color:var(--muted);font-size:.85rem;background:linear-gradient(135deg,var(--soft),color-mix(in srgb,var(--accent) 22%,var(--soft)));border:1.5px dashed var(--accent);border-radius:18px;padding:12px}
@@ -84,7 +83,8 @@ footer{padding:32px 0;text-align:center;color:var(--muted);font-size:.85rem;bord
 @media(prefers-reduced-motion:reduce){.fade{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 .item.photo{padding:0;border:0;background:none;overflow:hidden;aspect-ratio:3/4}
 .item img,.lb img{width:100%;height:100%;object-fit:cover;border-radius:18px;display:block}
-.hero img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:18px;display:block}
+.hero img{width:100%;max-width:380px;max-height:70vh;aspect-ratio:4/5;object-fit:cover;border-radius:18px;display:block;justify-self:center}
+.lb .ph{max-height:78vh;margin:0 auto}
 </style>
 </head>
 <body>
@@ -215,7 +215,7 @@ function render(){
     b.className=it.img?"item photo":"ph item";b.type="button";
     b.setAttribute("aria-label","View "+it.t);
     b.innerHTML=it.img?`<img src="${it.img}" alt="${it.t}" loading="lazy">`:"<strong>[ADD PHOTO]</strong>"+it.t;
-    b.onclick=()=>open(i);grid.appendChild(b);
+    b.onclick=()=>openLb(i);grid.appendChild(b);
   });
 }
 const fl=$("filters");
@@ -225,7 +225,7 @@ const fl=$("filters");
   b.onclick=()=>{active=c;[...fl.children].forEach(x=>x.setAttribute("aria-pressed",x===b));render()};
   fl.appendChild(b);
 });
-function open(i){idx=i;show();lb.classList.add("open");$("close").focus()}
+function openLb(i){idx=i;show();lb.classList.add("open");$("close").focus()}
 function show(){const it=view[idx];$("lbPh").innerHTML=it.img?`<img src="${it.img}" alt="${it.t}">`:"<strong>[ADD PHOTO]</strong>"+it.t;$("lbPh").setAttribute("aria-label","Placeholder for "+it.t);$("lbCap").textContent=it.t}
 const step=d=>{idx=(idx+d+view.length)%view.length;show()};
 $("prev").onclick=()=>step(-1);$("next").onclick=()=>step(1);
